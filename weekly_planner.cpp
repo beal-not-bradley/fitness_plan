@@ -83,14 +83,20 @@ std::string make_rows(std::vector<std::string> &options_vector, std::string menu
     		option_num++;
     	}
     	else{
-    		row_string.append(menu_array[option_num]);
-    		row_string.append(",");
-    		if (option_num == 1){
-    			option_num--;
+    		if (row_name == "WORKOUTS," && i%2 == 0){
+    			row_string.append(",");
+    			std::cout<<i;
     		}
     		else{
-    			option_num++;
-    		}
+	    		row_string.append(menu_array[option_num]);
+	    		row_string.append(",");
+	    		if (option_num == 1){
+	    			option_num--;
+	    		}
+	    		else{
+	    			option_num++;
+	    		}
+	    	}
 
     	}
     	if (i == 4){
@@ -108,17 +114,23 @@ int main()
 
 	// USE VECTORS HERE INSTEAD OF ARRAY SO WE DON'T NEED TO HAVE SIZE WHEN PASSING TO GET_OPTIONS
 	//initialize lunch choices, and empty lunch menu arrays
-	std::vector<std::string> lunch_options {"Taco Salad", "Soba + Shoyu Chicken", "Salmon + Broccoli + Sweet Potatoes"};
+	std::vector<std::string> lunch_options {"Taco Salad", "Soba + Shoyu Chicken", "Salmon + Broccoli + Sweet Potatoes",
+	"Curry Rice", "Egg Salad Sando w/ Side Salad", "Flank Steak Salad", "Tuna Boat + Miso Soup",
+	"Tuna Mayo Onigiri", "Salmon Onigiri", "Poke/Sashimi", "TAKEOUT BABYYY", "TJ's Curry + Chicken + Rice"
+	,"Soup + Grilled Cheese"};
 	//wtf is this shit
 	//std::array<std::string, 2> lunch_menu {};
 	std::string lunch_menu [menu_size];
 
 	//initialize dinner choices, and empty dinner menu array
-	std::vector<std::string> dinner_options {"Oyakodon + Miso Soup", "Kalbi Flank Steak Salad", "Curry Rice"};
+	std::vector<std::string> dinner_options {"Oyakodon + Miso Soup", "Kalbi Flank Steak Salad", "Curry Rice", "Salmon + Broccolini + Shirataki",
+	"Soboro Don + Salad + Miso Soup", "Spam Eggs Rice", "Mackerel + Salad + Miso Soup", "Chicken Breast + Veggies (Japanese Marinade)",
+	"Nimono", "Shoyu Honey Ginger Chicken + Veggies", "Pizza + Salad", "Mapo Tofu", "Chickpea Pasta"};
 	std::string dinner_menu [menu_size];
 
 	//initialize workout choices and empty workout plan array
-	std::vector<std::string> workout_options {"1 Mile: Oyster Point", "7 100yd Sprints: park", "Plyometrics/Agility: park"};
+	std::vector<std::string> workout_options {"1 Mile: Oyster Point", "7 100yd Sprints: park", "Plyometrics/Agility: park",
+	"3 300s: Park", "2 Mile: Oyster Point", "4 Mile: Oyster Point", "Great Highway"};
 	std::string workout_plan [menu_size];
 
 	//random chunk
@@ -126,21 +138,24 @@ int main()
     std::mt19937 eng(rd()); // seed the generator
 
     //get lunch menu
-    //get_options(lunch_options, lunch_menu, menu_size, eng);
+    get_options(lunch_options, lunch_menu, menu_size, eng);
 
     //get dinner menu
-    //get_options(dinner_options, dinner_menu, menu_size, eng);
+    get_options(dinner_options, dinner_menu, menu_size, eng);
 
     //get workout plan
     get_options(workout_options, workout_plan, menu_size, eng);
 
     //make rows in string format "ROWNAME, OPTION, OPTION,...,\n"
-    //std::string lunch_row = make_rows(lunch_options, lunch_menu, "LUNCH");
-    //std::string dinner_row = make_rows(dinner_options, dinner_menu, "DINNER");
+    std::string lunch_row = make_rows(lunch_options, lunch_menu, "LUNCH");
+    std::string dinner_row = make_rows(dinner_options, dinner_menu, "DINNER");
     std::string workout_row = make_rows(workout_options, workout_plan, "WORKOUTS");
-    std::cout<<workout_row;
+    //std::cout<<workout_row;
+    //std::string dinner_row = "";
+    //std::string lunch_row = "";
+    //std::string workout_row = "";
 
-    //make_csv(lunch_row, dinner_row, workout_row);
+    make_csv(lunch_row, dinner_row, workout_row);
 
     return 0;
 
